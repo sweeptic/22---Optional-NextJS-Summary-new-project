@@ -27,5 +27,7 @@ export async function getStaticProps(ctx) {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    // ISG: replace old generated pages during the run time
+    revalidate: 3600, // / 1 hour
   };
 }
