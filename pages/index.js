@@ -21,6 +21,28 @@ export default function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
+// -----------------------------------------------------------------------------------------
+// ONLY RUNS ON THE SERVER!!!!
+// -----------------------------------------------------------------------------------------
+// It runs after build process
+// runs on every incoming requests
+// disadvantage : wait for generated every incoming requests
+// use this if really need access to request object
+// or the underlying data changes every second
+// export async function getServerSideProps(context) {
+//   // only access in getServerSideProps
+//   const req = context.req;
+//   const res = context.res;
+
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
+
+// -----------------------------------------------------------------------------------------
+
 // STATIC GENERATION WHEN BUILD THE SITE
 export async function getStaticProps(ctx) {
   return {
