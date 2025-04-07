@@ -65,7 +65,6 @@ export async function getStaticProps(context) {
       //   address: 'Some address 5 4432',
       //   description: 'Te meetup description',
       // },
-      debugData: {},
     },
   };
 }
