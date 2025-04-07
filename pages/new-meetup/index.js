@@ -16,8 +16,6 @@ export default function NewMeetupPage() {
 
     const data = await response.json();
 
-    console.log('response json: ', data);
-
     router.replace('/');
   };
 

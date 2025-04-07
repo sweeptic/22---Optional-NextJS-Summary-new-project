@@ -10,8 +10,6 @@ const connectionString = `mongodb+srv://${env.mongodb_username}:${env.mongodb_pa
 export default function MeetupDetails(props) {
   const router = useRouter();
 
-  //   console.log('Runs on CLIENT meetupId: ', props);
-
   return (
     <>
       <MeetupDetail
@@ -31,7 +29,6 @@ export async function getStaticProps(context) {
   // THIS NEEDS IF FALLBACK SET TO TRUE in getStaticPaths
 
   const meetupId = context.params.meetupId;
-  console.log('Runs on SERVER meetupId: ', meetupId);
 
   const client = await MongoClient.connect(connectionString);
   const db = client.db();
@@ -40,8 +37,6 @@ export async function getStaticProps(context) {
   // const selectedMeetup = await meetupsCollection.findOne({ _id: new ObjectId(meetupId) });
   //   const selectedMeetup = await meetupsCollection.findOne({ title: 'title 1' });
   const selectedMeetup = await meetupsCollection.findOne({ _id: ObjectId.createFromHexString(meetupId) });
-
-  //   console.log('selectedMeetup', selectedMeetup);
 
   client.close();
 

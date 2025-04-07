@@ -23,8 +23,6 @@ export default async function POST(req, res) {
 
   const result = await meetupsCollection.insertOne(data);
 
-  console.log(result);
-
   // error handling...
   client.close();
 
