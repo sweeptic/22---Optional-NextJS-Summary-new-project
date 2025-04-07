@@ -6,7 +6,7 @@ const env = {
   mongodb_username: 'sweepticmac',
   mongodb_password: 'FvdCuyPuZSrXhAh5',
   mongodb_clustername: 'cluster0',
-  mongodb_database: 'restApi-demo',
+  mongodb_database: 'Optional-NextJS-Summary',
 };
 
 const connectionString = `mongodb+srv://${env.mongodb_username}:${env.mongodb_password}@${env.mongodb_clustername}.5mx6g.mongodb.net/${env.mongodb_database}?retryWrites=true&w=majority&appName=Cluster0`;
