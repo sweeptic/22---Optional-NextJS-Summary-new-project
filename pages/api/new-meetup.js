@@ -2,7 +2,7 @@
 
 import { MongoClient } from 'mongodb';
 
-const env = {
+export const env = {
   mongodb_username: 'sweepticmac',
   mongodb_password: 'FvdCuyPuZSrXhAh5',
   mongodb_clustername: 'cluster0',

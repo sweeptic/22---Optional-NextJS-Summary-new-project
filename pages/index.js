@@ -1,21 +1,25 @@
+import { MongoClient } from 'mongodb';
+
 import MeetupList from '../components/meetups/MeetupList';
 
-const DUMMY_MEETUPS = [
-  {
-    id: 'm1',
-    title: 'A First Meetup',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg',
-    address: 'Some address 5, 12345 Some City',
-    description: 'This is a first meetup!',
-  },
-  {
-    id: 'm2',
-    title: 'A Second Meetup',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg',
-    address: 'Some address 5, 12345 Some City',
-    description: 'This is a second meetup!',
-  },
-];
+import { env } from './api/new-meetup';
+
+// const DUMMY_MEETUPS = [
+//   {
+//     id: 'm1',
+//     title: 'A First Meetup',
+//     image: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg',
+//     address: 'Some address 5, 12345 Some City',
+//     description: 'This is a first meetup!',
+//   },
+//   {
+//     id: 'm2',
+//     title: 'A Second Meetup',
+//     image: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Stadtbild_M%C3%BCnchen.jpg',
+//     address: 'Some address 5, 12345 Some City',
+//     description: 'This is a second meetup!',
+//   },
+// ];
 
 export default function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
@@ -43,11 +47,35 @@ export default function HomePage(props) {
 
 // -----------------------------------------------------------------------------------------
 
+const connectionString = `mongodb+srv://${env.mongodb_username}:${env.mongodb_password}@${env.mongodb_clustername}.5mx6g.mongodb.net/${env.mongodb_database}?retryWrites=true&w=majority&appName=Cluster0`;
+
 // STATIC GENERATION WHEN BUILD THE SITE
 export async function getStaticProps(ctx) {
+  const client = await MongoClient.connect(connectionString);
+
+  const db = client.db();
+
+  const meetupsCollection = db.collection('meetups');
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  client.close();
+
+  // can use server side inly in NEXT
+  //   fetch('/api/meetups');
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map((meetup) => {
+        const updatedMeetup = {
+          title: meetup.title,
+          address: meetup.address,
+          image: meetup.image,
+          id: meetup._id.toString(),
+        };
+
+        return updatedMeetup;
+      }),
     },
     // ISG: replace old generated pages during the run time
     revalidate: 3600, // / 1 hour
