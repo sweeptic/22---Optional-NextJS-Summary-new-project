@@ -30,7 +30,7 @@ export default function HomePage(props) {
 // use this if really need access to request object
 // or the underlying data changes every second
 // export async function getServerSideProps(context) {
-//   // only access in getServerSideProps
+//   // only access in  SideProps
 //   const req = context.req;
 //   const res = context.res;
 
