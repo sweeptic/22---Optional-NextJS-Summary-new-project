@@ -99,6 +99,6 @@ export async function getStaticPaths() {
     //   ],
     // if TRUE: nextjs try to generate pages dynamically
     // if FALSE: contains ALL supported meetup ID values
-    fallback: false,
+    fallback: 'blocking',
   };
 }
